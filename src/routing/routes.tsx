@@ -3,6 +3,7 @@ import React from "react";
 import Home from "../pages/Home";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
+import Tailwind from "../pages/Tailwind";
 
 
 interface RouteType {
@@ -23,5 +24,9 @@ export const ROUTES: RouteType[] = [
   {
     path: "/contact",
     element: <Contact />,
+  },
+  {
+    path: "/tailwind-practice",
+    element: <Tailwind />,
   }
 ];
