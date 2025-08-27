@@ -27,7 +27,7 @@ const Position = () => {
                     <div
                         style={{
                             position : "fixed",
-                            top : "20px"
+                            top : "60px"
                         }}
                         className="border-1 mt-1">This is fixed item</div>
                 </div>

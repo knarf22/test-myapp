@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Tailwind from "../pages/Tailwind";
+import ReactLearning from "../pages/ReactLearning";
 
 
 interface RouteType {
@@ -28,5 +29,9 @@ export const ROUTES: RouteType[] = [
   {
     path: "/tailwind-practice",
     element: <Tailwind />,
+  },
+   {
+    path: "/react-learning",
+    element: <ReactLearning />,
   }
 ];
