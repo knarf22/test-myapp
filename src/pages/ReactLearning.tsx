@@ -1,6 +1,7 @@
 import { useState } from "react"
 import CounterUseState from "../react-lessons/CounterUseState"
 import TypeProp, { type TypePropInterface } from "../react-lessons/TypeProp"
+import FetchData from "../react-lessons/FetchData"
 
 const ReactLearning = () => {
 
@@ -13,14 +14,18 @@ const ReactLearning = () => {
 
   const [counter, setCounter] = useState(0);
 
- 
   return (
     <>
       <TypeProp
-          {...user}
+        {...user}
       />
-      <hr/>
-      <CounterUseState count={counter} setCount={setCounter}/>
+      <hr />
+      <CounterUseState
+        count={counter}
+        increment={() => setCounter(prev => prev + 1)}
+        descrement={() => setCounter(prev => prev - 1)}
+      />
+      <FetchData />
     </>
   )
 }

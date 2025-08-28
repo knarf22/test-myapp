@@ -6,7 +6,7 @@ import Navbar from "./Navbar";
 
 const Layout: React.FC = () => {
     return (
-        <>
+        <>  
             <Navbar />
             <main style={{ padding: "1rem" }}>
                 <Outlet />

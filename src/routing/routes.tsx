@@ -1,4 +1,3 @@
-// routesConfig.tsx
 import React from "react";
 import Home from "../pages/Home";
 import About from "../pages/About";
@@ -30,7 +29,7 @@ export const ROUTES: RouteType[] = [
     path: "/tailwind-practice",
     element: <Tailwind />,
   },
-   {
+  {
     path: "/react-learning",
     element: <ReactLearning />,
   }
