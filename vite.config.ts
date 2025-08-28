@@ -8,5 +8,5 @@ export default defineConfig({
     tailwindcss(),
     react()
   ],
-  
+  base: '/test-myapp/',   // 👈 this fixes GitHub Pages path
 })
