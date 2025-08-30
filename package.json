@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://knarf22.github.io/test-myapp/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

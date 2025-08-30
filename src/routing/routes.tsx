@@ -4,6 +4,7 @@ import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Tailwind from "../pages/Tailwind";
 import ReactLearning from "../pages/ReactLearning";
+import SkewedHero from "../tailwind-lessons/Skewed";
 
 
 interface RouteType {

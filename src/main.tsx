@@ -7,7 +7,7 @@ import AppRoutes from './routing/AppRoute'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename='test-myapp'>
       <AppRoutes />
     </BrowserRouter>
   </StrictMode>,
