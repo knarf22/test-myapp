@@ -1,5 +1,5 @@
-import ForScroll from "../tailwind-lessons/ForScroll"
-import Position from "../tailwind-lessons/Position"
+import ForScroll from "../../tailwind-lessons/ForScroll"
+import Position from "../../tailwind-lessons/Position"
 
 
 const Tailwind = () => {

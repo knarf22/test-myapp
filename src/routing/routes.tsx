@@ -1,9 +1,9 @@
 import React from "react";
-import Home from "../pages/Home";
-import About from "../pages/About";
-import Contact from "../pages/Contact";
-import Tailwind from "../pages/Tailwind";
-import ReactLearning from "../pages/ReactLearning";
+import Home from "../react-lessons/pages/Home";
+import About from "../react-lessons/pages/About";
+import Contact from "../react-lessons/pages/Contact";
+import Tailwind from "../react-lessons/pages/Tailwind";
+import ReactLearning from "../react-lessons/pages/ReactLearning";
 import SkewedHero from "../tailwind-lessons/Skewed";
 
 

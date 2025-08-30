@@ -1,7 +1,7 @@
 // Navbar.tsx
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { ROUTES } from "../routing/routes";
+import { ROUTES } from "../../routing/routes";
 
 
 const Navbar: React.FC = () => {

@@ -1,7 +1,7 @@
 import { useState } from "react"
-import CounterUseState from "../react-lessons/CounterUseState"
-import TypeProp, { type TypePropInterface } from "../react-lessons/TypeProp"
-import FetchData from "../react-lessons/FetchData"
+import CounterUseState from "../CounterUseState"
+import TypeProp, { type TypePropInterface } from "../TypeProp"
+import FetchData from "../FetchData"
 
 const ReactLearning = () => {
 
