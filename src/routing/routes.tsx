@@ -5,6 +5,7 @@ import Contact from "../react-lessons/pages/Contact";
 import Tailwind from "../react-lessons/pages/Tailwind";
 import ReactLearning from "../react-lessons/pages/ReactLearning";
 import SkewedHero from "../tailwind-lessons/Skewed";
+import Todo from "../react-lessons/todo/Todo";
 
 
 interface RouteType {
@@ -33,5 +34,9 @@ export const ROUTES: RouteType[] = [
   {
     path: "/react-learning",
     element: <ReactLearning />,
+  },
+  {
+    path : "/todo",
+    element : <Todo />
   }
 ];
