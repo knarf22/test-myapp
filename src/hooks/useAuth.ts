@@ -1,7 +1,7 @@
 // src/hooks/useAuth.ts
 import { useState } from "react";
-import { loginUser } from "../services/authService";
-import type { UserLoginRequest, UserLoginResponse } from "../types/auth";
+import { loginUser, registerUserService } from "../services/authService";
+import type { UserLoginRequest, UserLoginResponse, UserRegisterRequest, UserRegisterResponse } from "../types/auth";
 
 
 export function useAuth() {
@@ -16,5 +16,14 @@ export function useAuth() {
         }
     };
 
-    return { login, loading };
+    const registerUser = async (data : UserRegisterRequest) : Promise<UserRegisterResponse> => {
+        setLoading(true);
+        try{
+            return await registerUserService(data);
+        }finally{
+            setLoading(false);
+        }
+    }
+
+    return { login, registerUser, loading };
 }

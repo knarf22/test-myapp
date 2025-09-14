@@ -5,9 +5,10 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { ROUTES } from "./routes";
 import Layout from "../react-lessons/pages/Layout";
 import SkewedHero from "../tailwind-lessons/Skewed";
-import SignupUI from "../react-lessons/pages/SignUpUI";
-import LoginUI from "../react-lessons/pages/LoginUI";
+
 import { AnimatePresence, motion } from "framer-motion";
+import LoginUI from "../react-lessons/login-register/LoginUI";
+import SignupUI from "../react-lessons/login-register/SignUpUI";
 
 const pageVariants = {
     initial: { opacity: 0, x: 100 },

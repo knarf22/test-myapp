@@ -9,3 +9,14 @@ export interface UserLoginResponse {
   username: string;
   token: string;
 }
+
+export interface UserRegisterRequest {
+  username: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface UserRegisterResponse {
+  userId: number;
+  username: string;
+}
