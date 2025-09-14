@@ -8,7 +8,7 @@ import SkewedHero from "../tailwind-lessons/Skewed";
 
 import { AnimatePresence, motion } from "framer-motion";
 import LoginUI from "../react-lessons/login-register/LoginUI";
-import SignupUI from "../react-lessons/login-register/SignUpUI";
+import SignupUI from "../react-lessons/login-register/SignupUI";
 
 const pageVariants = {
     initial: { opacity: 0, x: 100 },
