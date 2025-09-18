@@ -1,81 +1,123 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
+import {
+  getTodos,
+  createTodo,
+  completeTodo,
+  deleteTodo,
+  updateTodo,
+} from "../../services/todoService";
 
 export type TodoItem = {
-    id: number;
-    title: string;
-    description: string;
-    done: boolean;
+  todoId: number;
+  userId: number;
+  title: string;
+  description: string;
+  isDone: boolean;
+  createdAt: string;
 };
 
+const USER_ID = 29;
+
 const Todo: React.FC = () => {
-    const [todos, setTodos] = useState<TodoItem[]>([]);
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [editingId, setEditingId] = useState<number | null>(null);
-    const inputRef = useRef<HTMLInputElement | null>(null);
+  const [todos, setTodos] = useState<TodoItem[]>([]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-    const saveTodo = () => {
-        const trimmedTitle = title.trim();
-        const trimmedDesc = description.trim();
-        if (!trimmedTitle) return;
+  // fetch on mount
+  useEffect(() => {
+    getTodos(USER_ID)
+      .then((data) => setTodos(data))
+      .catch((err) => console.error("Error fetching todos:", err));
+  }, []);
 
-        if (editingId !== null) {
-            // Update existing todo
-            setTodos((prev) =>
-                prev.map((t) =>
-                    t.id === editingId ? { ...t, title: trimmedTitle, description: trimmedDesc } : t
-                )
-            );
-            setEditingId(null);
-        } else {
-            // Add new todo
-            setTodos((prev) => [
-                { id: Date.now(), title: trimmedTitle, description: trimmedDesc, done: false },
-                ...prev,
-            ]);
-        }
+  const saveTodo = async () => {
+    const trimmedTitle = title.trim();
+    const trimmedDesc = description.trim();
+    if (!trimmedTitle) return;
 
-        setTitle("");
-        setDescription("");
-        inputRef.current?.focus();
-    };
+    if (editingId !== null) {
+      try {
+        await updateTodo(editingId, trimmedTitle, trimmedDesc);
 
-    const toggleDone = (id: number) =>
-        setTodos((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+        setTodos((prev) =>
+          prev.map((t) =>
+            t.todoId === editingId
+              ? { ...t, title: trimmedTitle, description: trimmedDesc }
+              : t
+          )
+        );
 
-    const removeTodo = (id: number) => setTodos((prev) => prev.filter((t) => t.id !== id));
+        setEditingId(null);
+      } catch (err) {
+        console.error("Error updating todo:", err);
+      }
+    } else {
+      try {
+        const newTodo = await createTodo(USER_ID, trimmedTitle, trimmedDesc);
+        setTodos((prev) => [newTodo, ...prev]);
+      } catch (err) {
+        console.error("Error creating todo:", err);
+      }
+    }
 
-    const editTodo = (todo: TodoItem) => {
-        setTitle(todo.title);
-        setDescription(todo.description);
-        setEditingId(todo.id);
-        inputRef.current?.focus();
-    };
+    setTitle("");
+    setDescription("");
+    inputRef.current?.focus();
+  };
 
-    return (
-        <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-2xl shadow-lg">
-            <h1 className="text-2xl font-semibold mb-4">Todo</h1>
 
-            <TodoInput
-                title={title}
-                setTitle={setTitle}
-                description={description}
-                setDescription={setDescription}
-                saveTodo={saveTodo}
-                inputRef={inputRef}
-                editingId={editingId}
-            />
+  const toggleDone = async (id: number) => {
+    try {
+      console.log("id", id)
+      await completeTodo(id);
+      setTodos((prev) =>
+        prev.map((t) => (t.todoId === id ? { ...t, isDone: true } : t))
+      );
+    } catch (err) {
+      console.error("Error marking complete:", err);
+    }
+  };
 
-            <TodoList
-                todos={todos}
-                toggleDone={toggleDone}
-                removeTodo={removeTodo}
-                editTodo={editTodo}
-            />
-        </div>
-    );
+  const removeTodo = async (id: number) => {
+    try {
+      await deleteTodo(id);
+      setTodos((prev) => prev.filter((t) => t.todoId !== id));
+    } catch (err) {
+      console.error("Error deleting todo:", err);
+    }
+  };
+
+  const editTodo = (todo: TodoItem) => {
+    setTitle(todo.title);
+    setDescription(todo.description);
+    setEditingId(todo.todoId);
+    inputRef.current?.focus();
+  };
+
+  return (
+    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-2xl shadow-lg">
+      <h1 className="text-2xl font-semibold mb-4">Todo</h1>
+      <TodoInput
+        title={title}
+        setTitle={setTitle}
+        description={description}
+        setDescription={setDescription}
+        saveTodo={saveTodo}
+        inputRef={inputRef}
+        editingId={editingId}
+      />
+      <TodoList
+        todos={todos}
+        toggleDone={toggleDone}
+        removeTodo={removeTodo}
+        editTodo={editTodo}
+      />
+    </div>
+  );
 };
 
 export default Todo;

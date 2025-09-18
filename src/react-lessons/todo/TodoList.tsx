@@ -15,19 +15,19 @@ const TodoList: React.FC<TodoListProps> = ({ todos, toggleDone, removeTodo, edit
         <ul className="flex flex-col gap-2">
             {todos.map((todo) => (
                 <li
-                    key={todo.id}
+                    key={todo.todoId}
                     className={`p-4 border rounded-lg flex flex-col gap-1 ${
-                        todo.done ? "bg-green-100 line-through" : "bg-gray-50"
+                        todo.isDone ? "bg-green-100 line-through" : "bg-gray-50"
                     }`}
                 >
                     <div className="flex justify-between items-center">
                         <h3 className="font-semibold">{todo.title}</h3>
                         <div className="flex gap-2">
                             <button
-                                onClick={() => toggleDone(todo.id)}
+                                onClick={() => toggleDone(todo.todoId)}
                                 className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
                             >
-                                {todo.done ? "Undo" : "Done"}
+                                {todo.isDone ? "Undo" : "Done"}
                             </button>
                             <button
                                 onClick={() => editTodo(todo)}
@@ -36,7 +36,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, toggleDone, removeTodo, edit
                                 Edit
                             </button>
                             <button
-                                onClick={() => removeTodo(todo.id)}
+                                onClick={() => removeTodo(todo.todoId)}
                                 className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                             >
                                 Remove
