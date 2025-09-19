@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
 import {
@@ -18,23 +19,38 @@ export type TodoItem = {
   createdAt: string;
 };
 
-const USER_ID = 29;
-
 const Todo: React.FC = () => {
+  const [userId, setUserId] = useState<number | null>(null);
   const [todos, setTodos] = useState<TodoItem[]>([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [editingId, setEditingId] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const navigate = useNavigate();
 
   // fetch on mount
   useEffect(() => {
-    getTodos(USER_ID)
+    const storedUserId = localStorage.getItem("userId");
+
+    if (!storedUserId) {
+      navigate("/login"); // redirect if not logged in
+      return;
+    }
+
+    const parsedUserId = Number(storedUserId);
+    setUserId(parsedUserId);
+
+    getTodos(parsedUserId)
       .then((data) => setTodos(data))
       .catch((err) => console.error("Error fetching todos:", err));
-  }, []);
+  }, [navigate]);
 
   const saveTodo = async () => {
+    if (!userId) {
+      navigate("/login");
+      return;
+    }
+
     const trimmedTitle = title.trim();
     const trimmedDesc = description.trim();
     if (!trimmedTitle) return;
@@ -57,7 +73,7 @@ const Todo: React.FC = () => {
       }
     } else {
       try {
-        const newTodo = await createTodo(USER_ID, trimmedTitle, trimmedDesc);
+        const newTodo = await createTodo(userId, trimmedTitle, trimmedDesc);
         setTodos((prev) => [newTodo, ...prev]);
       } catch (err) {
         console.error("Error creating todo:", err);
@@ -69,10 +85,8 @@ const Todo: React.FC = () => {
     inputRef.current?.focus();
   };
 
-
   const toggleDone = async (id: number) => {
     try {
-      console.log("id", id)
       await completeTodo(id);
       setTodos((prev) =>
         prev.map((t) => (t.todoId === id ? { ...t, isDone: true } : t))

@@ -22,10 +22,12 @@ const FetchData = () => {
 
     return (
         <>
-            isLoading ? <div> data fetching...</div> :
-            <div>
-                data fetched!
-            </div>
+            {isLoading ? (
+                <div>data fetching...</div>
+            ) : (
+                <div>data fetched!</div>
+            )}
+
             <hr />
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                 {user.map((i, key) => (

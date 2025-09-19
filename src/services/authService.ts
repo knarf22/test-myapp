@@ -6,6 +6,7 @@ import type { UserLoginRequest, UserRegisterRequest } from "../types/auth";
 export async function loginUser(data: UserLoginRequest) {
   const response = await login(data);
   localStorage.setItem("token", response.token);
+  localStorage.setItem("userId", String(response.userId)); // ✅ convert to string
   return response;
 }
 

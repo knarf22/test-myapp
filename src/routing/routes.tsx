@@ -4,7 +4,7 @@ import About from "../react-lessons/pages/About";
 import Contact from "../react-lessons/pages/Contact";
 import Tailwind from "../react-lessons/pages/Tailwind";
 import ReactLearning from "../react-lessons/pages/ReactLearning";
-import SkewedHero from "../tailwind-lessons/Skewed";
+// import SkewedHero from "../tailwind-lessons/Skewed";
 import Todo from "../react-lessons/todo/Todo";
 
 

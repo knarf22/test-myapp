@@ -1,14 +1,21 @@
+// src/react-lessons/login-register/LoginUI.tsx
 import React, { useState } from "react";
-import loginImg from "../../../public/img/login2.jpg";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+
+import type { UserLoginRequest } from "../../types/auth";
+import loginImg from "../../../public/img/login2.jpg";
+import { useAuthContext } from "../../context/authContext";
+import { useAuthService } from "../../hooks/useAuth";
 
 const LoginUI: React.FC = () => {
+  const { login, loading } = useAuthService();
+  const { setToken } = useAuthContext();
   const navigate = useNavigate();
-  const { login, loading } = useAuth();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState<UserLoginRequest>({
+    username: "",
+    password: "",
+  });
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -16,9 +23,11 @@ const LoginUI: React.FC = () => {
     setError("");
 
     try {
-      const user = await login({ username, password });
-      console.log("✅ Logged in:", user);
-      navigate("/"); // change to your after-login page
+      const res = await login(form);
+      if (res.token) {
+        setToken(res.token);
+        navigate("/");
+      }
     } catch (err) {
       console.error("❌ Login failed:", err);
       setError("Invalid username or password");
@@ -32,38 +41,38 @@ const LoginUI: React.FC = () => {
         <div className="sm:w-1/2 w-full flex flex-col justify-center p-4">
           <h2 className="text-2xl font-bold mb-6 text-[#666565]">Login</h2>
 
-          <form onSubmit={handleSubmit} autoComplete="off">
+          <form onSubmit={handleSubmit} autoComplete="off" className="space-y-3">
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={form.username}
+              onChange={(e) => setForm({ ...form, username: e.target.value })}
               placeholder="Username"
-              className="p-3 mb-1 w-full border border-gray-300 rounded-lg"
+              className="p-3 w-full border border-gray-300 rounded-lg"
               autoComplete="username"
             />
 
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
               placeholder="Password"
-              className="p-3 mb-1 w-full border border-gray-300 rounded-lg"
+              className="p-3 w-full border border-gray-300 rounded-lg"
               autoComplete="current-password"
             />
 
-            {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
             <button
               type="submit"
               disabled={loading}
-              className="bg-[#847379] text-white p-3 w-full rounded-lg mb-4 cursor-pointer disabled:opacity-50"
+              className="bg-[#847379] text-white p-3 w-full rounded-lg cursor-pointer disabled:opacity-50"
             >
               {loading ? "Logging in..." : "Login"}
             </button>
           </form>
 
           {/* Signup Text */}
-          <div className="text-center text-gray-600">
+          <div className="text-center text-gray-600 mt-4">
             <p className="mb-2">Don’t have an account?</p>
             <button
               onClick={() => navigate("/sign-up")}
@@ -74,11 +83,26 @@ const LoginUI: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Side */}
+        {/* Right Side (Image) */}
         <div className="hidden sm:flex sm:w-1/2 justify-center items-center">
-          <img src={loginImg} alt="Login Illustration" className="rounded-3xl object-contain" />
+          <img
+            src={loginImg}
+            alt="Login Illustration"
+            className="rounded-3xl object-contain"
+          />
         </div>
       </div>
+      {loading && (
+        <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center z-[9999]">
+          <div className="flex flex-col items-center">
+            {/* Spinner */}
+            <div className="w-16 h-16 border-4 border-t-transparent border-red-200 rounded-full animate-spin"></div>
+            <p className="mt-4 text-red-200 text-lg font-semibold">
+              Logging in...
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

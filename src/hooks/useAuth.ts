@@ -1,29 +1,39 @@
-// src/hooks/useAuth.ts
+// src/hooks/useAuthService.ts
 import { useState } from "react";
 import { loginUser, registerUserService } from "../services/authService";
-import type { UserLoginRequest, UserLoginResponse, UserRegisterRequest, UserRegisterResponse } from "../types/auth";
+import type {
+  UserLoginRequest,
+  UserLoginResponse,
+  UserRegisterRequest,
+  UserRegisterResponse,
+} from "../types/auth";
 
+export function useAuthService() {
+  const [loading, setLoading] = useState(false);
 
-export function useAuth() {
-    const [loading, setLoading] = useState(false);
+  const login = async (data: UserLoginRequest): Promise<UserLoginResponse> => {
+    setLoading(true);
+    try {
+      const result = await loginUser(data);
+      // force minimum delay of 1.5s before returning
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      return result;
 
-    const login = async (data: UserLoginRequest): Promise<UserLoginResponse> => {
-        setLoading(true);
-        try {
-            return await loginUser(data);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const registerUser = async (data : UserRegisterRequest) : Promise<UserRegisterResponse> => {
-        setLoading(true);
-        try{
-            return await registerUserService(data);
-        }finally{
-            setLoading(false);
-        }
+    } finally {
+      setLoading(false);
     }
+  };
 
-    return { login, registerUser, loading };
+  const registerUser = async (
+    data: UserRegisterRequest
+  ): Promise<UserRegisterResponse> => {
+    setLoading(true);
+    try {
+      return await registerUserService(data);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { login, registerUser, loading };
 }
