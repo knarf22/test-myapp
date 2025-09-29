@@ -6,6 +6,8 @@ import Tailwind from "../react-lessons/pages/Tailwind";
 import ReactLearning from "../react-lessons/pages/ReactLearning";
 // import SkewedHero from "../tailwind-lessons/Skewed";
 import Todo from "../react-lessons/todo/Todo";
+import ContactForm from "../react-lessons/contact-form/ContactForm";
+import { AdminContactTable } from "../react-lessons/contact-form/AdminView";
 
 
 interface RouteType {
@@ -38,5 +40,13 @@ export const ROUTES: RouteType[] = [
   {
     path : "/todo",
     element : <Todo />
+  },
+  {
+    path : "/contact-form",
+    element : <ContactForm />
+  },
+    {
+    path : "/adminView-form",
+    element : <AdminContactTable />
   }
 ];

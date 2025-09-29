@@ -9,15 +9,9 @@ import {
   deleteTodo,
   updateTodo,
 } from "../../services/todoService";
+import type { TodoItem } from "../../types/todo";
 
-export type TodoItem = {
-  todoId: number;
-  userId: number;
-  title: string;
-  description: string;
-  isDone: boolean;
-  createdAt: string;
-};
+
 
 const Todo: React.FC = () => {
   const [userId, setUserId] = useState<number | null>(null);
@@ -36,8 +30,8 @@ const Todo: React.FC = () => {
       navigate("/login"); // redirect if not logged in
       return;
     }
-
     const parsedUserId = Number(storedUserId);
+
     setUserId(parsedUserId);
 
     getTodos(parsedUserId)

@@ -1,41 +1,32 @@
-import axios from "axios";
-import type { TodoItem } from "../react-lessons/todo/Todo";
+// src/services/todoService.ts
 
-const API_URL = "https://localhost:5001/api/Todo";
+import { complete, create, get, remove, update } from "../api/todoAPI";
+import type { TodoItem } from "../types/todo";
 
-export const getTodos = async (userId: number): Promise<TodoItem[]> => {
-  const res = await axios.get<TodoItem[]>(`${API_URL}/active/${userId}`);
-  return res.data;
-};
+export async function getTodos(userId: number): Promise<TodoItem[]> {
+  return await get(userId);
+}
 
-export const createTodo = async (
+export async function createTodo(
   userId: number,
   title: string,
   description: string
-): Promise<TodoItem> => {
-  const res = await axios.post<TodoItem>(API_URL, {
-    title,
-    description,
-    userId,
-  });
-  return res.data;
-};
+): Promise<TodoItem> {
+  return await create(userId, title, description);
+}
 
-export const updateTodo = async (
+export async function updateTodo(
   id: number,
   title: string,
   description: string
-): Promise<void> => {
-  await axios.put(`${API_URL}/${id}/update`, {
-    title,
-    description,
-  });
-};
+): Promise<void> {
+  await update(id, title, description);
+}
 
-export const completeTodo = async (id: number): Promise<void> => {
-  await axios.put(`${API_URL}/${id}/complete`);
-};
+export async function completeTodo(id: number): Promise<void> {
+  await complete(id);
+}
 
-export const deleteTodo = async (id: number): Promise<void> => {
-  await axios.delete(`${API_URL}/${id}`);
-};
+export async function deleteTodo(id: number): Promise<void> {
+  await remove(id);
+}

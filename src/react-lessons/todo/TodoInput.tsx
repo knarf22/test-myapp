@@ -1,14 +1,5 @@
 import React from "react";
-
-type TodoInputProps = {
-    title: string;
-    setTitle: React.Dispatch<React.SetStateAction<string>>;
-    description: string;
-    setDescription: React.Dispatch<React.SetStateAction<string>>;
-    saveTodo: () => void;
-    inputRef: React.RefObject<HTMLInputElement | null>;
-    editingId: number | null;
-};
+import type { TodoInputProps } from "../../types/todo";
 
 const TodoInput: React.FC<TodoInputProps> = ({
     title,

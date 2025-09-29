@@ -1,12 +1,6 @@
 import React from "react";
-import type { TodoItem } from "./Todo";
+import type { TodoListProps } from "../../types/todo";
 
-type TodoListProps = {
-    todos: TodoItem[];
-    toggleDone: (id: number) => void;
-    removeTodo: (id: number) => void;
-    editTodo: (todo: TodoItem) => void;
-};
 
 const TodoList: React.FC<TodoListProps> = ({ todos, toggleDone, removeTodo, editTodo }) => {
     if (todos.length === 0) return <p className="text-gray-500">No tasks yet.</p>;
