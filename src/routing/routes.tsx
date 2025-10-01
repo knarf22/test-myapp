@@ -9,6 +9,7 @@ import Todo from "../react-lessons/todo/Todo";
 import ContactForm from "../react-lessons/contact-form/ContactForm";
 import { AdminContactTable } from "../react-lessons/contact-form/AdminView";
 import BlogPage from "../react-lessons/mini-blog/BlogPage";
+import CreateBlogPage from "../react-lessons/mini-blog/CreatePostPage";
 
 
 interface RouteType {
@@ -51,7 +52,11 @@ export const ROUTES: RouteType[] = [
     element : <AdminContactTable />
   },
     {
-    path : "/mini-blog",
+    path : "/blog-post",
+    element : <CreateBlogPage />
+  },
+    {
+    path : "/blog-list",
     element : <BlogPage />
   }
 ];

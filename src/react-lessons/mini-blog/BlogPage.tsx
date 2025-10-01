@@ -1,14 +1,46 @@
 import React, { useState } from "react";
-import PostList from "./PostList";
+import type { Comment, Post } from "../../types/blog";
 import { samplePosts } from "./SamplePosts";
+import PostList from "./PostList";
+import PostModal from "./PostModal";
+
 
 const BlogPage: React.FC = () => {
-  const [posts] = useState(samplePosts);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [comments, setComments] = useState<Record<number, Comment[]>>({});
+
+
+  const handleAddComment = (postId: number, text: string) => {
+    setComments((prev) => {
+      const postComments = prev[postId] || [];
+      const newEntry: Comment = {
+        id: postComments.length + 1,
+        text,
+      };
+      return {
+        ...prev,
+        [postId]: [...postComments, newEntry],
+      };
+    });
+  };
 
   return (
     <div className="max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Latest Posts</h1>
-      <PostList posts={posts} />
+      <h1 className="text-3xl font-bold mb-6">Mini Blog</h1>
+
+
+      {/* Post List */}
+      <PostList posts={samplePosts} onSelectPost={setSelectedPost} />
+
+      {/* Modal */}
+      {selectedPost && (
+        <PostModal
+          post={selectedPost}
+          comments={comments[selectedPost.id] || []}
+          onClose={() => setSelectedPost(null)}
+          onAddComment={(text) => handleAddComment(selectedPost.id, text)}
+        />
+      )}
     </div>
   );
 };
