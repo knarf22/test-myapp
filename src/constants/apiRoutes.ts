@@ -19,6 +19,11 @@ export const API_ROUTES = {
   CREATE_CONTACT_MSG: `/api/ContactMessages`,
   UPDATE_CONTACT_MSG: (id: number) => `/api/ContactMessages/${id}/status`,
 
+  // ### CONTACT MESSAGE ####
+  GET_POST: `/api/Posts`,
+  CREATE_POST: `/api/Posts`,
+  UPDATE_POST: (id: number) => `/api/Post/${id}`,
+
 
 };
 export const API_URL = import.meta.env.VITE_API_URL ?? "https://localhost:5001";
