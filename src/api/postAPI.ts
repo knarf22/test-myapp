@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_ROUTES, API_URL } from "../constants/apiRoutes";
-import type { Post, UpdatePost } from "../types/blog";
+import type { CreatePostItem, Post, UpdatePost } from "../types/blog";
 
 
 export async function get(): Promise<Post[]> {
@@ -8,7 +8,7 @@ export async function get(): Promise<Post[]> {
     return res.data;
 }
 
-export async function create(post: Post): Promise<void> {
+export async function create(post: CreatePostItem): Promise<void> {
    await axios.post<Post>(`${API_URL}${API_ROUTES.CREATE_POST}`, post);
 }
 

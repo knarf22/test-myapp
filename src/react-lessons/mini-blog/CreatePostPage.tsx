@@ -1,10 +1,13 @@
 import React from "react";
-import type { Post } from "../../types/blog";
+import type { CreatePostItem } from "../../types/blog";
 import CreatePost from "./CreatePost";
+import { usePost } from "../../hooks/usePost";
 
 const CreateBlogPage: React.FC = () => {
-  const handleAddPost = (newPost: Post) => {
-    console.log("New Post Created:", newPost);
+
+  const { addPost, loading } = usePost()
+  const handleAddPost = (newPost: CreatePostItem) => {
+    addPost(newPost)
   };
 
   return (
@@ -12,7 +15,7 @@ const CreateBlogPage: React.FC = () => {
       <h1 className="text-3xl font-bold mb-6">Create Blog</h1>
 
       {/* Create Post Form */}
-      <CreatePost onAddPost={handleAddPost} />
+      <CreatePost onAddPost={handleAddPost} isLoading={loading} />
     </div>
   );
 };

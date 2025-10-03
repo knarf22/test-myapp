@@ -21,7 +21,7 @@ const PostList: React.FC<PostListProps> = ({ posts, onSelectPost }) => {
           </div>
 
           <div className="flex items-center justify-between text-sm text-gray-500">
-            <span>By {post.author}</span>
+            <span>By {post.username}</span>
             <span>{post.date}</span>
           </div>
 

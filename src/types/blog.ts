@@ -2,7 +2,7 @@ export interface Post {
   id: number;
   title: string;
   body: string;
-  author: string;
+  username: string;
   date: string;
 }
 
@@ -29,6 +29,13 @@ export interface PostListProps {
   onSelectPost: (post: Post) => void;
 }
 
+export interface CreatePostItem {
+  userId : number;
+  title : string;
+  body : string;
+}
+
 export interface CreatePostProps {
-  onAddPost: (post: Post) => void;
+  onAddPost: (post: CreatePostItem) => void;
+  isLoading : boolean
 }

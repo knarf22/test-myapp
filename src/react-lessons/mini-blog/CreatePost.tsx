@@ -1,23 +1,24 @@
 import React, { useState } from "react";
-import type { CreatePostProps, Post } from "../../types/blog";
+import type { CreatePostItem, CreatePostProps } from "../../types/blog";
+import { getUser } from "../../utils/getUser";
 
 
 
-const CreatePost: React.FC<CreatePostProps> = ({ onAddPost }) => {
+const CreatePost: React.FC<CreatePostProps> = ({ onAddPost, isLoading = false }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
+  const { userId } = getUser();
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim() || !body.trim() || !author.trim()) return;
 
-    const newPost: Post = {
-      id: Date.now(), // quick unique id
+    const newPost: CreatePostItem = {
+      userId  : userId,
       title: title.trim(),
-      body: body.trim(),
-      author: author.trim(),
-      date: new Date().toISOString().split("T")[0], // YYYY-MM-DD
+      body: body.trim()
     };
 
     onAddPost(newPost);
@@ -69,7 +70,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onAddPost }) => {
         type="submit"
         className="cursor-pointer px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
       >
-        Publish Post
+        {isLoading ? "Loading" : "Publish Post"}
       </button>
     </form>
   );

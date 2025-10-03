@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import type { Comment, Post } from "../../types/blog";
-import { samplePosts } from "./SamplePosts";
 import PostList from "./PostList";
 import PostModal from "./PostModal";
 import { usePost } from "../../hooks/usePost";
@@ -10,14 +9,14 @@ const BlogPage: React.FC = () => {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
   const [comments, setComments] = useState<Record<number, Comment[]>>({});
+  const { fetchPosts } = usePost()
 
-  const {fetchPosts} = usePost()
   useEffect(() => {
-     fetchPosts()
-          .then((data) => setPosts(data))
-          .catch((err) => console.error("Error fetching todos:", err));
+    fetchPosts()
+      .then((data) => setPosts(data))
+      .catch((err) => console.error("Error fetching todos:", err));
   }, [])
-  
+
 
   const handleAddComment = (postId: number, text: string) => {
     setComments((prev) => {
