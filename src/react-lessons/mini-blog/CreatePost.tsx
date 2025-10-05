@@ -7,13 +7,12 @@ import { getUser } from "../../utils/getUser";
 const CreatePost: React.FC<CreatePostProps> = ({ onAddPost, isLoading = false }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [author, setAuthor] = useState("");
   const { userId } = getUser();
 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim() || !body.trim() || !author.trim()) return;
+    if (!title.trim() || !body.trim()) return;
 
     const newPost: CreatePostItem = {
       userId  : userId,
@@ -26,7 +25,6 @@ const CreatePost: React.FC<CreatePostProps> = ({ onAddPost, isLoading = false })
     // reset
     setTitle("");
     setBody("");
-    setAuthor("");
   };
 
   return (
@@ -55,17 +53,6 @@ const CreatePost: React.FC<CreatePostProps> = ({ onAddPost, isLoading = false })
           className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
-
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Author Name"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-
       <button
         type="submit"
         className="cursor-pointer px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"

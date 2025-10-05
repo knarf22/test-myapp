@@ -1,9 +1,11 @@
 export interface Post {
-  id: number;
+  postId: number;
   title: string;
   body: string;
   username: string;
   date: string;
+  comments: Comment[]; // 👈 added
+
 }
 
 export interface UpdatePost {
@@ -12,16 +14,12 @@ export interface UpdatePost {
 }
 
 
-export interface Comment {
-  id: number;
-  text: string;
-}
 
 export interface PostModalProps {
   post: Post;
-  comments: Comment[];
   onClose: () => void;
-  onAddComment: (text: string) => void;
+  onUpdateComments: (postId: number, updated: Comment[]) => void;
+
 }
 
 export interface PostListProps {
@@ -30,12 +28,24 @@ export interface PostListProps {
 }
 
 export interface CreatePostItem {
-  userId : number;
-  title : string;
-  body : string;
+  userId: number;
+  title: string;
+  body: string;
+}
+
+export interface CreateCommentItem {
+  postId: number;
+  userId: number;
+  text: string;
+}
+
+export interface Comment {
+  commentId: number;
+  text: string;
+  username: string | null;
 }
 
 export interface CreatePostProps {
   onAddPost: (post: CreatePostItem) => void;
-  isLoading : boolean
+  isLoading: boolean
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createPost, getPosts, updatePost } from "../services/postService";
-import type { Post, UpdatePost } from "../types/blog";
+import type { CreatePostItem, Post, UpdatePost } from "../types/blog";
 
 export function usePost() {
   const [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ export function usePost() {
     }
   };
 
-  const addPost = async (contactMsg: Post): Promise<void> => {
+  const addPost = async (contactMsg: CreatePostItem): Promise<void> => {
     setLoading(true);
     try {
       return await createPost(contactMsg);

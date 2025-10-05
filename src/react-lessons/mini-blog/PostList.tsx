@@ -8,7 +8,7 @@ const PostList: React.FC<PostListProps> = ({ posts, onSelectPost }) => {
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 p-6">
       {posts.map((post) => (
         <div
-          key={post.id}
+          key={post.postId}
           className="bg-white shadow-md rounded-2xl p-5 flex flex-col justify-between hover:shadow-lg transition"
         >
           <div>

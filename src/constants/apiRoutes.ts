@@ -19,10 +19,14 @@ export const API_ROUTES = {
   CREATE_CONTACT_MSG: `/api/ContactMessages`,
   UPDATE_CONTACT_MSG: (id: number) => `/api/ContactMessages/${id}/status`,
 
-  // ### CONTACT MESSAGE ####
+  // ### POST ####
   GET_POST: `/api/Posts`,
   CREATE_POST: `/api/Posts`,
   UPDATE_POST: (id: number) => `/api/Post/${id}`,
+  
+  // ### COMMENT ####
+  GET_COMMENT : (postId : number) => `/api/Comments/post/${postId}`,
+  CREATE_COMMENT: `/api/Comments`,
 
 
 };
